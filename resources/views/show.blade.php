@@ -9,6 +9,13 @@
                 <h3>Autore : {{ $book['autore'] }}</h3>
                 <p>ID libro : {{$book['id'] }}</p>
             </div>
+            <div class="row">
+                <form action="{{route('book.destroy', $book->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Cancella Libro</button>
+                </form>
+            </div>
         </div>
     </div>
 </x-layout>

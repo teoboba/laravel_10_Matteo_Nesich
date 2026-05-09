@@ -24,3 +24,6 @@ Route::post('contact_us', [BookController::class, 'contact_us_send'])->name('con
 // inserimento libro
 Route::get('inserisci_libro', [BookController::class, 'create'])->name('book.create')->middleware('auth');
 Route::post('inserisci_libro', [BookController::class, 'store'])->name('book.store')->middleware('auth');
+
+//cancellazione libro
+Route::delete('cancella_libro/{id}', [BookController::class, 'destroy'])->name('book.destroy')->middleware('auth');

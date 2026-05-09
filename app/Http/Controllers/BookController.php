@@ -69,4 +69,14 @@ public function store(BookRequest $request){
 
 }
 
+public function destroy($id){
+    $book = Book::find($id);
+    if($book){
+        $book->delete();
+        return redirect(route('home'))->with('success', 'Libro cancellato con successo');
+    }
+    return redirect(route('home'))->with('error', 'Libro non trovato');
+
+}
+
 }
