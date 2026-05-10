@@ -27,3 +27,7 @@ Route::post('inserisci_libro', [BookController::class, 'store'])->name('book.sto
 
 //cancellazione libro
 Route::delete('cancella_libro/{id}', [BookController::class, 'destroy'])->name('book.destroy')->middleware('auth');
+
+//modifica libro
+Route::get('modifica_libro/{id}', [BookController::class, 'edit'])->name('book.edit')->middleware('auth');
+Route::put('modifica_libro/{id}', [BookController::class, 'update'])->name('book.update')->middleware('auth');
