@@ -90,22 +90,20 @@ public function edit($id){
 public function update(BookRequest $request, $id){
     $book = Book::find($id);
     if($book){
-        $book->update([
-            'titolo' => $request->input('titolo'),
-            'autore' => $request->input('autore'),
+        $data = [
+            'titolo'         => $request->input('titolo'),
+            'autore'         => $request->input('autore'),
             'published_year' => $request->input('published_year'),
-            
-        ]);
-        if($request->img){
-            $book->update([
-                 $book->img => $request->file('img')->store('images', 'public'),
-            ]);
+        ];
+
+        if($request->hasFile('img')){
+            $data['img'] = $request->file('img')->store('images', 'public');
         }
+
+        $book->update($data);
         return redirect(route('home'))->with('success', 'Libro modificato con successo');
     }
     return redirect(route('home'))->with('error', 'Libro non trovato');
-
-
 }
 
 }
