@@ -9,12 +9,16 @@
                 <h3>Autore : {{ $book['autore'] }}</h3>
                 <p>ID libro : {{$book['id'] }}</p>
             </div>
+            @auth
+                @if($book->user_id === Auth::id())
             <div class="row">
                 <form action="{{route('book.destroy', $book->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Cancella Libro</button>
                 </form>
+                @endif
+            @endauth
             </div>
         </div>
     </div>

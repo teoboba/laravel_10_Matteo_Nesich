@@ -9,8 +9,14 @@
             <div class="card-body">
                 <h3>{{$book['titolo']}}</h3>
                 <p>{{$book['autore']}}</p>
+                <p>Libro inserito da : {{ $book->user->name }}</p>
                 <a href="{{ route('book.show', ['id' => $book['id']])}}" class="btn btn-primary">dettaglio</a>
+                @auth
+                    @if($book->user_id === Auth::id())
                  <a href="{{ route('book.edit', ['id' => $book['id']])}}" class="btn btn-primary">modifica</a>
+                    @endif
+            
+                @endauth
             </div>
         </div>
         @endforeach

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailables\Address;
 use App\Models\Book;
 use App\Http\Requests\BookRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -59,6 +60,7 @@ public function store(BookRequest $request){
         'autore' => $request->input('autore'),
         'published_year' => $request->input('published_year'),
         'img' => $request->file('img')->store('images', 'public'),
+        'user_id' => Auth::user()->id,
     ]);
         
 
@@ -80,6 +82,10 @@ public function destroy($id){
 }
 
 public function edit($id){
+
+    if(!Auth::check()){
+        return redirect(route('home'))->with('error', 'Devi essere loggato per modificare un libro');
+    }
     $book = Book::find($id);
     if($book){
         return view('book.edit', ['book' => $book]);
@@ -88,6 +94,8 @@ public function edit($id){
 }
 
 public function update(BookRequest $request, $id){
+
+
     $book = Book::find($id);
     if($book){
         $data = [
@@ -106,6 +114,15 @@ public function update(BookRequest $request, $id){
     return redirect(route('home'))->with('error', 'Libro non trovato');
 }
 
+
+
+
+public function profile(){
+   
+    return view('profile');
+
 }
 
+
+}
 

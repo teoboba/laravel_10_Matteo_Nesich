@@ -31,3 +31,6 @@ Route::delete('cancella_libro/{id}', [BookController::class, 'destroy'])->name('
 //modifica libro
 Route::get('modifica_libro/{id}', [BookController::class, 'edit'])->name('book.edit')->middleware('auth');
 Route::put('modifica_libro/{id}', [BookController::class, 'update'])->name('book.update')->middleware('auth');
+
+//profilo utente
+Route::get('user/profilo', [BookController::class, 'profile'])->name('profile')->middleware('auth');
